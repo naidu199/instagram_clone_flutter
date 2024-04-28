@@ -7,6 +7,7 @@ pickImage(ImageSource source) async {
   if (file != null) {
     return await file.readAsBytes();
   } else {
+    // ignore: avoid_print
     print("no image selected");
   }
 }

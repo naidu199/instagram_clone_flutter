@@ -30,7 +30,7 @@ class AuthSignUp {
           'username': username,
           'email': email,
           'password': password,
-          'bio': bio,
+          'bio': '',
           'followers': [],
           'following': [],
           'profileImage': profileUrl,
@@ -42,6 +42,8 @@ class AuthSignUp {
         res = 'The password provided is too weak.';
       } else if (e.code == 'email-already-in-use') {
         res = 'The account already exists for that email.';
+      } else if (e.code == "invalid-email") {
+        res = "Email is Badly Formated";
       } else {
         res = e.message.toString();
       }

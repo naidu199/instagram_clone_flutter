@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/backend/authentication/auth_signup.dart';
+import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
+import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/text_input.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -22,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController biocontroller = TextEditingController();
   final TextEditingController usernamecontroller = TextEditingController();
   Uint8List? profileImage;
+  bool _islaoding = false;
 
   @override
   void dispose() {
@@ -36,6 +39,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Uint8List image = await pickImage(ImageSource.gallery);
     setState(() {
       profileImage = image;
+    });
+  }
+
+  void signupUser() async {
+    setState(() {
+      _islaoding = true;
+    });
+    String response = await AuthSignUp().signup(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+        username: usernamecontroller.text.trim(),
+        bio: biocontroller.text.trim(),
+        profilepic: profileImage);
+    // print(res);
+    if (response != "success") {
+      // ignore: use_build_context_synchronously
+      showSnackBar(context, response);
+    }
+    setState(() {
+      _islaoding = false;
     });
   }
 
@@ -57,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 SvgPicture.asset(
                   'assets/ic_instagram.svg',
-                  // color: primaryColor,
+                  color: primaryColor,
                   height: 64,
                 ),
                 const SizedBox(
@@ -90,7 +113,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 TextFieldInput(
                   hintText: 'Username',
@@ -115,56 +138,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPassword: true,
                   textInputType: TextInputType.text,
                 ),
+                // const SizedBox(
+                //   height: 12,
+                // ),
+                // TextFieldInput(
+                //   hintText: 'Enter Bio',
+                //   textEditingController: biocontroller,
+                //   isPassword: false,
+                //   textInputType: TextInputType.text,
+                // ),
                 const SizedBox(
-                  height: 12,
-                ),
-                TextFieldInput(
-                  hintText: 'Enter Bio',
-                  textEditingController: biocontroller,
-                  isPassword: false,
-                  textInputType: TextInputType.text,
-                ),
-                const SizedBox(
-                  height: 20,
+                  height: 18,
                 ),
                 InkWell(
-                  onTap: () async {
-                    String res = await AuthSignUp().signup(
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim(),
-                        username: usernamecontroller.text.trim(),
-                        bio: biocontroller.text.trim(),
-                        profilepic: profileImage);
-                    print(res);
-                  },
+                  onTap: signupUser,
                   child: Container(
                     width: double.infinity,
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: const ShapeDecoration(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(4))),
                       color: blueColor,
                     ),
-                    child: const Text("SignUp"),
+                    child: _islaoding
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: primaryColor,
+                            ),
+                          )
+                        : const Text("SignUp"),
                   ),
                 ),
 
-                const SizedBox(
-                  height: 24,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Alraedy have an account? "),
-                    GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        "login",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
+                // const SizedBox(
+                //   height: 24,
+                // ),
+                Spacer(),
+                Container(
+                  margin: EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Alraedy have an account?  "),
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(AppRoutes.loginRoute);
+                        },
+                        child: const Text(
+                          "login",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 const Spacer(),
                 // SizedBox(

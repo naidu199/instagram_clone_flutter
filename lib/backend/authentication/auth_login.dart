@@ -1,26 +1,36 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthLogin {
-  Future<String?> login({
+  Future<String> login({
     required String email,
     required String password,
   }) async {
+    String res = "Some error has occured";
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return 'Success';
+      if (email.isNotEmpty && password.isNotEmpty) {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        res = 'success';
+      } else {
+        res = "please enter all the fields ";
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        return 'No user found for that email.';
+        res = 'No user found for that email';
       } else if (e.code == 'wrong-password') {
-        return 'Wrong password provided for that user.';
+        res = 'Invalid Password ';
+      } else if (e.message.toString() ==
+          "The supplied auth credential is incorrect, malformed or has expired.") {
+        res = "Invalid credential";
       } else {
-        return e.message;
+        res = e.message.toString();
+        print(res);
       }
     } catch (e) {
-      return e.toString();
+      res = e.toString();
     }
+    return res;
   }
 }
