@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/text_input.dart';
@@ -60,7 +62,45 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 24,
             ),
-            TextButton(onPressed: () {}, child: Text("data"))
+            InkWell(
+              child: Container(
+                child: Text("Login"),
+                width: double.infinity,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: const ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(4))),
+                  color: blueColor,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Flexible(
+              child: Container(),
+              flex: 1,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Text("Don't have an account?"),
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    child: Text(
+                      "signUp",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       )),
