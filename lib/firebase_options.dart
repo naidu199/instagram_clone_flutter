@@ -40,47 +40,4 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB-xIvBzS4kJY2ZU3m24XzCjyiTMizDmD0',
-    appId: '1:959088467303:web:1e3e039fe6252a0cc623c2',
-    messagingSenderId: '959088467303',
-    projectId: 'instagram-clone-799f4',
-    authDomain: 'instagram-clone-799f4.firebaseapp.com',
-    storageBucket: 'instagram-clone-799f4.appspot.com',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB4QL9Xgxh6k5zOLC9l13M17pArPtG_bDw',
-    appId: '1:959088467303:android:024377c3264a366ac623c2',
-    messagingSenderId: '959088467303',
-    projectId: 'instagram-clone-799f4',
-    storageBucket: 'instagram-clone-799f4.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA-wyBi8NgKyGNt1J6t4_7sHOBKmMNhemc',
-    appId: '1:959088467303:ios:9550d9c30c7ccdfcc623c2',
-    messagingSenderId: '959088467303',
-    projectId: 'instagram-clone-799f4',
-    storageBucket: 'instagram-clone-799f4.appspot.com',
-    iosBundleId: 'com.example.instagramClone',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA-wyBi8NgKyGNt1J6t4_7sHOBKmMNhemc',
-    appId: '1:959088467303:ios:9550d9c30c7ccdfcc623c2',
-    messagingSenderId: '959088467303',
-    projectId: 'instagram-clone-799f4',
-    storageBucket: 'instagram-clone-799f4.appspot.com',
-    iosBundleId: 'com.example.instagramClone',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyB-xIvBzS4kJY2ZU3m24XzCjyiTMizDmD0',
-    appId: '1:959088467303:web:afc4905bd30c6b09c623c2',
-    messagingSenderId: '959088467303',
-    projectId: 'instagram-clone-799f4',
-    authDomain: 'instagram-clone-799f4.firebaseapp.com',
-    storageBucket: 'instagram-clone-799f4.appspot.com',
-  );
-}
+  
