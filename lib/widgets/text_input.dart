@@ -43,7 +43,7 @@ class _TextFieldInputState extends State<TextFieldInput> {
                       : Icons.visibility_off),
                 )
               : null),
-      obscureText: !isPasswordVisible,
+      obscureText: widget.isPassword && !isPasswordVisible,
       keyboardType: widget.textInputType,
     );
   }

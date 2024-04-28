@@ -1,8 +1,13 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:instagram_clone/backend/authentication/auth_signup.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/widgets/text_input.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController biocontroller = TextEditingController();
   final TextEditingController usernamecontroller = TextEditingController();
+  Uint8List? profileImage;
 
   @override
   void dispose() {
@@ -25,6 +31,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     passwordController.dispose();
     biocontroller.dispose();
     usernamecontroller.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List image = await pickImage(ImageSource.gallery);
+    setState(() {
+      profileImage = image;
+    });
   }
 
   @override
@@ -53,16 +66,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 Stack(
                   children: [
-                    CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(
-                          "https://cdn.pixabay.com/photo/2024/03/20/06/18/ai-generated-8644732_1280.jpg"),
-                    ),
+                    profileImage != null
+                        ? CircleAvatar(
+                            radius: 50,
+                            backgroundImage: MemoryImage(profileImage!),
+                          )
+                        : const CircleAvatar(
+                            radius: 50,
+                            backgroundImage: NetworkImage(
+                                "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"),
+                          ),
                     Positioned(
                         bottom: -1,
                         right: -10,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            selectImage();
+                          },
                           icon: const Icon(
                             Icons.add_a_photo,
                             size: 26,
@@ -77,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   hintText: 'Username',
                   textEditingController: usernamecontroller,
                   textInputType: TextInputType.text,
+                  isPassword: false,
                 ),
                 const SizedBox(
                   height: 12,
@@ -108,6 +129,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 20,
                 ),
                 InkWell(
+                  onTap: () async {
+                    String res = await AuthSignUp().signup(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                        username: usernamecontroller.text.trim(),
+                        bio: biocontroller.text.trim(),
+                        profilepic: profileImage);
+                    print(res);
+                  },
                   child: Container(
                     child: Text("SignUp"),
                     width: double.infinity,
@@ -120,11 +150,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                 ),
-
-                // Flexible(
-                //   child: Container(),
-                //   flex: 1,
-                // ),
 
                 SizedBox(
                   height: 24,
