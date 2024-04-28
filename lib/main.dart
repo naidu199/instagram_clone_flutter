@@ -9,6 +9,7 @@ import 'package:instagram_clone/screens/signup.dart';
 import 'package:instagram_clone/utils/colors.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
