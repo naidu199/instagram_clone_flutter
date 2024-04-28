@@ -1,8 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/backend/authentication/auth_signup.dart';
@@ -45,7 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         child: Stack(
           children: [
@@ -53,12 +52,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
-                  child: Container(),
                   flex: 1,
+                  child: Container(),
                 ),
                 SvgPicture.asset(
                   'assets/ic_instagram.svg',
-                  color: primaryColor,
+                  // color: primaryColor,
                   height: 64,
                 ),
                 const SizedBox(
@@ -90,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ))
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextFieldInput(
@@ -107,7 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   textEditingController: emailController,
                   textInputType: TextInputType.emailAddress,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 TextFieldInput(
@@ -116,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPassword: true,
                   textInputType: TextInputType.text,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 12,
                 ),
                 TextFieldInput(
@@ -125,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   isPassword: false,
                   textInputType: TextInputType.text,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 InkWell(
@@ -139,7 +138,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     print(res);
                   },
                   child: Container(
-                    child: Text("SignUp"),
                     width: double.infinity,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -148,32 +146,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(4))),
                       color: blueColor,
                     ),
+                    child: const Text("SignUp"),
                   ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 24,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Text("Alraedy have an account? "),
-                      // padding: EdgeInsets.symmetric(vertical: 12),
-                    ),
+                    const Text("Alraedy have an account? "),
                     GestureDetector(
                       onTap: () {},
-                      child: Container(
-                        child: Text(
-                          "login",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        // padding: EdgeInsets.symmetric(vertical: 12),
+                      child: const Text(
+                        "login",
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     )
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 // SizedBox(
                 //   height: 10,
                 // )
