@@ -57,6 +57,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // ignore: use_build_context_synchronously
       showSnackBar(context, response);
     }
+    if (response == 'success') {
+      Navigator.of(context).pushNamed(AppRoutes.loginRoute);
+    }
     setState(() {
       _islaoding = false;
     });
@@ -167,27 +170,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               color: primaryColor,
                             ),
                           )
-                        : const Text("SignUp"),
+                        : const Text(
+                            "SignUp",
+                            style: TextStyle(color: primaryColor),
+                          ),
                   ),
                 ),
 
                 // const SizedBox(
                 //   height: 24,
                 // ),
-                Spacer(),
+                const Spacer(),
                 Container(
-                  margin: EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Alraedy have an account?  "),
+                      const Text(
+                        "Alraedy have an account?  ",
+                        style: TextStyle(color: primaryColor),
+                      ),
                       InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(AppRoutes.loginRoute);
                         },
                         child: const Text(
                           "login",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: primaryColor,
+                            fontSize: 16,
+                          ),
                         ),
                       )
                     ],

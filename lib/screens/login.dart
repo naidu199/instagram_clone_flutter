@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/authentication/auth_login.dart';
+import 'package:instagram_clone/responsive/mobilescreen_layout.dart';
+import 'package:instagram_clone/responsive/responsive_layout.dart';
+import 'package:instagram_clone/responsive/webscreen_layout.dart';
 import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
@@ -37,9 +40,18 @@ class _LoginScreenState extends State<LoginScreen> {
       // print(response);
       showSnackBar(context, response);
     }
+
     setState(() {
       _isloading = false;
     });
+    if (response == 'success') {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => const ResponsiveLayout(
+          webScreenLayout: WebScreenLayout(),
+          mobileScreenLayout: MobileScreenLayout(),
+        ),
+      ));
+    }
   }
 
   @override
@@ -87,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 width: double.infinity,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(vertical: 12),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 decoration: const ShapeDecoration(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(4))),
@@ -100,7 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: primaryColor,
                         ),
                       )
-                    : const Text("Login"),
+                    : const Text(
+                        "Login",
+                        style: TextStyle(color: primaryColor, fontSize: 18),
+                      ),
               ),
             ),
             const SizedBox(
@@ -116,7 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: const Text("Don't have an account?  "),
+                  child: const Text(
+                    "Don't have an account?  ",
+                    style: TextStyle(color: primaryColor),
+                  ),
                 ),
                 InkWell(
                   onTap: () {
@@ -125,8 +143,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     child: const Text(
-                      "signUp",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      "signup",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: primaryColor),
                     ),
                   ),
                 )

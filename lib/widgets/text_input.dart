@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/utils/colors.dart';
 
 class TextFieldInput extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -25,6 +26,9 @@ class _TextFieldInputState extends State<TextFieldInput> {
     return TextField(
       controller: widget.textEditingController,
       decoration: InputDecoration(
+          hintStyle: const TextStyle(
+            color: primaryColor,
+          ),
           hintText: widget.hintText,
           border: inputBorder,
           focusedBorder: inputBorder,
