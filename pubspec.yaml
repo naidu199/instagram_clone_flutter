@@ -42,6 +42,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   image_picker: ^1.1.0
   provider: ^6.1.2
+  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:

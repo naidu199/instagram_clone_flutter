@@ -24,6 +24,8 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   userData() async {
     UserProvider userProvider = Provider.of(context, listen: false);
     await userProvider.refreshUserDetails();
+    // print(3);
+    // print(userProvider.getUser.profileUrl);
   }
 
   @override

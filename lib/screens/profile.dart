@@ -8,15 +8,16 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserDetails userDetails =
-        Provider.of<UserProvider>(context).getUserDetails;
+    final UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
     print(userDetails.profileUrl);
     return Scaffold(
-      body: Container(
-          height: 100,
-          width: 100,
-          padding: EdgeInsets.all(10),
-          child: Image(image: NetworkImage(userDetails.profileUrl))),
+      body: Center(
+        child: Container(
+            height: 100,
+            width: 100,
+            padding: EdgeInsets.all(10),
+            child: Image(image: NetworkImage(userDetails.profileUrl))),
+      ),
     );
   }
 }

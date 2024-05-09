@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:instagram_clone/backend/storage/firebase_storage.dart';
+import 'package:instagram_clone/backend/storage/firebase_storage_firestore.dart';
 import 'package:instagram_clone/model/user.dart';
 
 class AuthSignUp {
