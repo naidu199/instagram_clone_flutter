@@ -12,7 +12,8 @@ class StorageMethods {
       String childName, Uint8List file, bool isPost) async {
     Reference storageRef =
         firebaseStorage.ref().child(childName).child(auth.currentUser!.uid);
-    UploadTask uploadTask = storageRef.putData(file);
+    SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
+    UploadTask uploadTask = storageRef.putData(file, metadata);
     TaskSnapshot snap = await uploadTask;
     String downloadUrl = await snap.ref.getDownloadURL();
     return downloadUrl;

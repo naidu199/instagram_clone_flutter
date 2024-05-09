@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/screens/add_post.dart';
+import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/utils/colors.dart';
 // import 'package:instagram_clone/backend/providers/user_providers.dart';
 // import 'package:instagram_clone/model/user.dart';
@@ -17,9 +19,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   final List<Widget> pages = [
     Container(color: Colors.red),
     Container(color: Colors.blue),
-    Container(color: Colors.purple),
+    AddPost(),
     Container(color: Colors.yellow),
-    Container(color: Colors.orange),
+    ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,16 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 // color: primaryColor,
                 size: 32,
               )),
+          // BottomNavigationBarItem(
+          //     backgroundColor: primaryColor,
+          //     label: '',
+          //     icon: Icon(
+          //       _seletedIndex == 1
+          //           ? Icons.search_outlined
+          //           : Icons.search_rounded,
+          //       color: _seletedIndex == 0 ? primaryColor : secondaryColor,
+          //       size: 32,
+          //     )),
           BottomNavigationBarItem(
               backgroundColor: primaryColor,
               label: '',
@@ -60,7 +72,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
               backgroundColor: primaryColor,
               label: '',
               icon: SvgPicture.asset(
-                'assets/add-square-outline.svg',
+                'assets/add-square-outline.svg', //TODO add box sharp icon
                 color: _seletedIndex == 2 ? primaryColor : secondaryColor,
                 height: 32,
                 width: 32,
