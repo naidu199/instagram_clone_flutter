@@ -6,7 +6,7 @@ import 'package:instagram_clone/model/post.dart';
 import 'package:uuid/uuid.dart';
 
 class FireStorePostStorage {
-  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
   Future<String> uploadPost(String description, Uint8List file, String uid,
       String username, String profileUrl) async {
     String res = "some error in storage";
@@ -23,7 +23,7 @@ class FireStorePostStorage {
           postUrl: postUrl,
           likes: [],
           profileUrl: profileUrl);
-      await firebaseFirestore
+      await _firebaseFirestore
           .collection('posts')
           .doc(postId)
           .set(postDetails.toJson());
@@ -33,5 +33,21 @@ class FireStorePostStorage {
       res = e.toString();
     }
     return res;
+  }
+
+  Future<void> likePost(String postId, String uid, List likes) async {
+    try {
+      if (likes.contains(uid)) {
+        await _firebaseFirestore.collection('posts').doc(postId).update({
+          'likes': FieldValue.arrayRemove([uid]),
+        });
+      } else {
+        await _firebaseFirestore.collection('posts').doc(postId).update({
+          'likes': FieldValue.arrayUnion([uid]),
+        });
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

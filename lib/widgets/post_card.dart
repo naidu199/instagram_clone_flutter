@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
+import 'package:instagram_clone/backend/storage/firebase_post_storage.dart';
 import 'package:instagram_clone/model/user.dart';
+import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
@@ -81,7 +83,9 @@ class _PostCardState extends State<PostCard> {
             ),
           ),
           GestureDetector(
-            onDoubleTap: () {
+            onDoubleTap: () async {
+              await FireStorePostStorage().likePost(widget.snapshot['postId'],
+                  userDetails.uid, widget.snapshot['likes']);
               setState(() {
                 isLikeAnimating = true;
               });
@@ -113,7 +117,7 @@ class _PostCardState extends State<PostCard> {
                       child: const Icon(
                         Icons.favorite,
                         color: Colors.white,
-                        size: 150,
+                        size: 125,
                       )),
                 )
               ],
@@ -125,25 +129,38 @@ class _PostCardState extends State<PostCard> {
                 isAnimating: widget.snapshot['likes'].contains(userDetails.uid),
                 smallLike: true,
                 child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.favorite_border,
-                    size: 32,
-                  ),
+                  onPressed: () async {
+                    await FireStorePostStorage().likePost(
+                        widget.snapshot['postId'],
+                        userDetails.uid,
+                        widget.snapshot['likes']);
+                  },
+                  icon: widget.snapshot['likes'].contains(userDetails.uid)
+                      ? const Icon(
+                          Icons.favorite,
+                          size: 32,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_border_outlined,
+                          size: 32,
+                          color: primaryColor,
+                        ),
                 ),
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: Icon(
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.commentsPageRoute),
+                  icon: const Icon(
                     Icons.message_rounded,
                     size: 32,
+                    color: primaryColor,
                   )),
               IconButton(
                 onPressed: () {},
                 icon: SvgPicture.asset(
                   'assets/instagram-share-icon (1).svg',
                   height: 25,
-                  // width: 30,
                   color: primaryColor,
                 ),
               ),
