@@ -50,4 +50,30 @@ class FireStorePostStorage {
       print(e.toString());
     }
   }
+
+  Future<void> postComments(String postId, String commentText, String uid,
+      String username, String profileUrl) async {
+    try {
+      if (commentText.isNotEmpty) {
+        String commentId = const Uuid().v1();
+        await _firebaseFirestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'username': username,
+          'profileUrl': profileUrl,
+          'commentText': commentText,
+          'userId': uid,
+          'commentId': commentId,
+          'timestamp': DateTime.now()
+        });
+      } else {
+        print('error in comment ');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

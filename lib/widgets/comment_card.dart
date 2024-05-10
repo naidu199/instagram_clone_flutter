@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:intl/intl.dart';
 
 class CommentCard extends StatefulWidget {
-  const CommentCard({super.key});
+  final snapshot;
+  const CommentCard({super.key, required this.snapshot});
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -18,8 +20,7 @@ class _CommentCardState extends State<CommentCard> {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundImage: NetworkImage(
-                'https://images.unsplash.com/photo-1551021794-03be4ddaf67d?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+            backgroundImage: NetworkImage(widget.snapshot['profileUrl']),
             radius: 18,
           ),
           Expanded(
@@ -31,24 +32,25 @@ class _CommentCardState extends State<CommentCard> {
                 children: [
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: primaryColor),
+                          style: const TextStyle(color: primaryColor),
                           children: [
                         TextSpan(
-                          text: 'UserName',
-                          style: TextStyle(
+                          text: widget.snapshot['username'],
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
-                          text: '  Description',
+                          text: '  ${widget.snapshot['commentText']}',
                         ),
                       ])),
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
-                      '10 may ',
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                      DateFormat.yMMMd()
+                          .format(widget.snapshot['timestamp'].toDate()),
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.w400),
                     ),
                   )
                 ],
@@ -57,7 +59,7 @@ class _CommentCardState extends State<CommentCard> {
           ),
           Container(
             padding: const EdgeInsets.all(8),
-            child: Icon(
+            child: const Icon(
               Icons.favorite_border,
               size: 24,
             ),

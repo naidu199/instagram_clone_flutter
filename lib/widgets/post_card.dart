@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,7 +9,9 @@ import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firebase_post_storage.dart';
 import 'package:instagram_clone/model/user.dart';
 import 'package:instagram_clone/routes/approutes.dart';
+import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +26,27 @@ class PostCard extends StatefulWidget {
 
 class _PostCardState extends State<PostCard> {
   bool isLikeAnimating = false;
+  int commentsLength = 0;
+  @override
+  void initState() {
+    super.initState();
+    getAllComments();
+  }
+
+  void getAllComments() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.snapshot['postId'])
+          .collection('comments')
+          .get();
+      setState(() {
+        commentsLength = querySnapshot.docs.length;
+      });
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +68,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 Expanded(
                     child: Padding(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,7 +174,9 @@ class _PostCardState extends State<PostCard> {
               ),
               IconButton(
                   onPressed: () => Navigator.of(context)
-                      .pushNamed(AppRoutes.commentsPageRoute),
+                          .push(MaterialPageRoute(builder: (context) {
+                        return CommentsScreen(snapshot: widget.snapshot);
+                      })),
                   icon: const Icon(
                     Icons.message_rounded,
                     size: 32,
@@ -164,10 +190,10 @@ class _PostCardState extends State<PostCard> {
                   color: primaryColor,
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.bookmark_border_outlined,
                     size: 32,
                   ))
@@ -211,12 +237,17 @@ class _PostCardState extends State<PostCard> {
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 4),
-                    child: Text(
-                      "view 200 comments ",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: secondaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              CommentsScreen(snapshot: widget.snapshot))),
+                      child: Text(
+                        "view all $commentsLength comments ",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: secondaryColor,
+                        ),
                       ),
                     ),
                   ),
@@ -226,7 +257,7 @@ class _PostCardState extends State<PostCard> {
                     child: Text(
                   DateFormat.yMMMd()
                       .format(widget.snapshot['datePublished'].toDate()),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: secondaryColor,
                   ),

@@ -13,7 +13,7 @@ class AuthSignUp {
     User currentuser = auth.currentUser!;
     DocumentSnapshot snap =
         await firestore.collection('Users').doc(currentuser.uid).get();
-    print(snap.data());
+    // print(snap.data());
     return UserDetails.fromSnapshot(snap);
   }
 
