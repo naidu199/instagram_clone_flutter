@@ -90,7 +90,12 @@ class _PostCardState extends State<PostCard> {
                                 shrinkWrap: true,
                                 children: ['Delete']
                                     .map((e) => InkWell(
-                                          onTap: () {},
+                                          onTap: () async {
+                                            FireStorePostStorage().deletePost(
+                                                widget.snapshot['postId'],
+                                                context);
+                                            Navigator.of(context).pop();
+                                          },
                                           child: Container(
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 12, horizontal: 16),
