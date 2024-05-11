@@ -23,7 +23,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     SearchScreen(),
     AddPost(),
     Container(color: Colors.yellow),
-    ProfilePage(),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
