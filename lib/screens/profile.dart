@@ -91,8 +91,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ],
               ),
-              Text("Username"),
-              Text('Bio'),
+              const Text("Username"),
+              const Text('Bio'),
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
