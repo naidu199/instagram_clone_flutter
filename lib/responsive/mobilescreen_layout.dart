@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone/backend/providers/user_providers.dart';
+import 'package:instagram_clone/model/user.dart';
 import 'package:instagram_clone/screens/add_post.dart';
 import 'package:instagram_clone/screens/feed_screen.dart';
 import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:provider/provider.dart';
 // import 'package:instagram_clone/backend/providers/user_providers.dart';
 // import 'package:instagram_clone/model/user.dart';
 // import 'package:provider/provider.dart';
@@ -27,7 +30,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   ];
   @override
   Widget build(BuildContext context) {
-    // UserDetails userDetails = Provider.of<UserProvider>(context).getUserDetails;
+    UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       body: pages[_seletedIndex],
       bottomNavigationBar: BottomNavigationBar(

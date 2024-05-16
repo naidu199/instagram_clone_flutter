@@ -47,6 +47,8 @@ class AuthSignUp {
             .doc(cred.user!.uid)
             .set(userDetails.toJson());
         res = "success";
+      } else {
+        res = "please enter all the fields";
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
