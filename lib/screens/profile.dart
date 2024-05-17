@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
+import 'package:instagram_clone/backend/storage/firestore_methods.dart';
 import 'package:instagram_clone/model/user.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/utils/colors.dart';
@@ -152,23 +153,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           user!.uid == widget.uid
                               ? CustomButton(
                                   function: () {},
-                                  text: 'Share',
+                                  text: 'Edit',
                                   backgroundcolor: mobileBackgroundColor,
                                   textColor: primaryColor)
                               : isFollowing
                                   ? CustomButton(
-                                      function: () {},
+                                      function: () async {
+                                        await FireStoreMethods()
+                                            .followUser(user!.uid, widget.uid);
+
+                                        setState(() {
+                                          isFollowing = false;
+                                          noOfFollowers--;
+                                        });
+                                      },
                                       text: 'following',
                                       backgroundcolor: Colors.white,
                                       textColor: Colors.black)
                                   : CustomButton(
-                                      function: () {},
+                                      function: () async {
+                                        await FireStoreMethods()
+                                            .followUser(user!.uid, widget.uid);
+                                        setState(() {
+                                          isFollowing = true;
+                                          noOfFollowers++;
+                                        });
+                                      },
                                       text: 'follow',
                                       backgroundcolor: Colors.blue,
                                       textColor: primaryColor),
                           CustomButton(
                               function: () {},
-                              text: 'Edit',
+                              text: 'share',
                               backgroundcolor: mobileBackgroundColor,
                               textColor: primaryColor),
                         ],

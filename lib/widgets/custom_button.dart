@@ -5,7 +5,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final Color backgroundcolor;
   final Color textColor;
-  final Function function;
+  final Function() function;
   const CustomButton(
       {super.key,
       required this.function,
@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => function,
+      onTap: function,
       borderRadius: BorderRadius.circular(15),
       splashColor: Colors.white,
       child: Container(
@@ -34,7 +34,7 @@ class CustomButton extends StatelessWidget {
             style: TextStyle(
                 backgroundColor: backgroundcolor,
                 color: textColor,
-                fontWeight: FontWeight.w800),
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),

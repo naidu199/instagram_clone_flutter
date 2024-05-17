@@ -15,6 +15,7 @@ class ResponsiveLayout extends StatefulWidget {
 }
 
 class _ResponsiveLayoutState extends State<ResponsiveLayout> {
+  bool isloading = false;
   @override
   void initState() {
     super.initState();
@@ -22,24 +23,34 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
   }
 
   userData() async {
+    setState(() {
+      isloading = true;
+    });
     UserProvider userProvider = Provider.of(context, listen: false);
     await userProvider.refreshUserDetails();
+    setState(() {
+      isloading = false;
+    });
     // print(3);
     // print(userProvider.getUser.profileUrl);
   }
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth > 600) {
-          // display web screen layout
-          return widget.webScreenLayout;
-        } else {
-          // display  mobile screen layout
-          return widget.mobileScreenLayout;
-        }
-      },
-    );
+    return isloading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth > 600) {
+                // display web screen layout
+                return widget.webScreenLayout;
+              } else {
+                // display  mobile screen layout
+                return widget.mobileScreenLayout;
+              }
+            },
+          );
   }
 }
