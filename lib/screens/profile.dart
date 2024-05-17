@@ -4,15 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/backend/providers/user_providers.dart';
+// import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firestore_methods.dart';
-import 'package:instagram_clone/model/user.dart';
+// import 'package:instagram_clone/model/user.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/custom_button.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String uid;

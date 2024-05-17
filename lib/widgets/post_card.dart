@@ -8,7 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firebase_post_storage.dart';
 import 'package:instagram_clone/model/user.dart';
-import 'package:instagram_clone/routes/approutes.dart';
+// import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/snackbars.dart';

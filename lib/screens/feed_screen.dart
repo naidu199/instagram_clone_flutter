@@ -21,7 +21,7 @@ class FeedScreen extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.favorite_border,
                 size: 32,
               )),

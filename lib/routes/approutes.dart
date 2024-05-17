@@ -1,6 +1,6 @@
 // import 'dart:js';
 
-import 'package:instagram_clone/screens/comments_screen.dart';
+// import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/screens/home_page.dart';
 import 'package:instagram_clone/screens/login.dart';
 import 'package:instagram_clone/screens/signup.dart';
