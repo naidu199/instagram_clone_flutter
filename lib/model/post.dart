@@ -24,6 +24,7 @@ class PostDetails {
 
   Map<String, dynamic> toJson() => {
         'description': description,
+        'uid': uid,
         'username': username,
         'postId': postId,
         'datePublished': datePublished,

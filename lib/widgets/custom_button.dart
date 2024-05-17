@@ -5,8 +5,10 @@ class CustomButton extends StatelessWidget {
   final String text;
   final Color backgroundcolor;
   final Color textColor;
+  final Function function;
   const CustomButton(
       {super.key,
+      required this.function,
       required this.text,
       required this.backgroundcolor,
       required this.textColor});
@@ -14,11 +16,13 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => function,
+      borderRadius: BorderRadius.circular(15),
+      splashColor: Colors.white,
       child: Container(
-        margin: const EdgeInsets.all(8),
+        margin: const EdgeInsets.all(3),
         padding: const EdgeInsets.all(8),
-        width: 200,
+        width: 150,
         height: 35,
         decoration: BoxDecoration(
             color: backgroundcolor,

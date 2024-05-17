@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/utils/colors.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -75,13 +76,21 @@ class _SearchScreenState extends State<SearchScreen> {
                     itemBuilder: (context, index) {
                       final userData = users[index].data()!;
 
-                      return ListTile(
-                        key: UniqueKey(),
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(userData['profileImage']),
+                      return InkWell(
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileScreen(uid: userData['uid']),
+                          ),
                         ),
-                        title: Text(userData['username']),
+                        child: ListTile(
+                          key: UniqueKey(),
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(userData['profileImage']),
+                          ),
+                          title: Text(userData['username']),
+                        ),
                       );
                     });
               })
@@ -106,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemBuilder: (context, index) {
                     final post = posts[index].data();
                     return ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: Image(
                         image: NetworkImage(post!['postUrl']),
                       ),

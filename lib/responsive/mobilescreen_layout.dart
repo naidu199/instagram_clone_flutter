@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 // import 'package:provider/provider.dart';
 
 class MobileScreenLayout extends StatefulWidget {
+  // final String uid;
   const MobileScreenLayout({super.key});
 
   @override
@@ -26,7 +28,9 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     SearchScreen(),
     AddPost(),
     Container(color: Colors.yellow),
-    ProfileScreen(),
+    ProfileScreen(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -54,25 +58,25 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                 // color: primaryColor,
                 size: 32,
               )),
-          // BottomNavigationBarItem(
-          //     backgroundColor: primaryColor,
-          //     label: '',
-          //     icon: Icon(
-          //       _seletedIndex == 1
-          //           ? Icons.search_outlined
-          //           : Icons.search_rounded,
-          //       color: _seletedIndex == 0 ? primaryColor : secondaryColor,
-          //       size: 32,
-          //     )),
           BottomNavigationBarItem(
               backgroundColor: primaryColor,
               label: '',
-              icon: SvgPicture.asset(
-                'assets/search-line-icon.svg',
-                color: _seletedIndex == 1 ? primaryColor : secondaryColor,
-                height: 32,
-                width: 32,
+              icon: Icon(
+                _seletedIndex == 1
+                    ? Icons.search_outlined
+                    : Icons.search_rounded,
+                color: _seletedIndex == 0 ? primaryColor : secondaryColor,
+                size: 32,
               )),
+          // BottomNavigationBarItem(
+          //     backgroundColor: primaryColor,
+          //     label: '',
+          //     icon: SvgPicture.asset(
+          //       'assets/search-line-icon.svg',
+          //       color: _seletedIndex == 1 ? primaryColor : secondaryColor,
+          //       height: 32,
+          //       width: 32,
+          //     )),
           BottomNavigationBarItem(
               backgroundColor: primaryColor,
               label: '',
@@ -105,8 +109,8 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
                   ),
                   color: primaryColor,
                   shape: BoxShape.circle),
-              child: const CircleAvatar(
-                backgroundImage: AssetImage('assets/w1.jpg'),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(userDetails.profileUrl),
               ),
             ),
           )

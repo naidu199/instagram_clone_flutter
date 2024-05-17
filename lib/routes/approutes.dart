@@ -9,13 +9,9 @@ class AppRoutes {
   static const String loginRoute = '/login';
   static const String signupRoute = '/signup';
   static const String homePageRoute = '/home_page';
-  // static const String commentsPageRoute = '/comments_page';
   static final routes = {
     loginRoute: (context) => const LoginScreen(),
     signupRoute: (context) => const SignUpScreen(),
     homePageRoute: (context) => const HomePage(),
-    // commentsPageRoute: (context) => const CommentsScreen(
-    //       snapshot: null,
-    //     ),
   };
 }

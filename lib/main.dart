@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active) {
                 if (snapshot.hasData) {
-                  print("main page");
+                  // print("main page");
                   return const ResponsiveLayout(
                     webScreenLayout: WebScreenLayout(),
                     mobileScreenLayout: MobileScreenLayout(),
