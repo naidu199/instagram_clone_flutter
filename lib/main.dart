@@ -42,32 +42,32 @@ class MyApp extends StatelessWidget {
         //   mobileScreenLayout: MobileScreenLayout(),
         // ),
         routes: AppRoutes.routes,
-        // home: LoginScreen(),
-        home: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasData) {
-                  // print("main page");
-                  return const ResponsiveLayout(
-                    webScreenLayout: WebScreenLayout(),
-                    mobileScreenLayout: MobileScreenLayout(),
-                  );
-                } else if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('error while loading '),
-                  );
-                }
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: primaryColor,
-                  ),
-                );
-              }
-              return const LoginScreen();
-            }),
+        home: const WebScreenLayout(),
+        // home: StreamBuilder(
+        //     stream: FirebaseAuth.instance.authStateChanges(),
+        //     builder: (context, snapshot) {
+        //       if (snapshot.connectionState == ConnectionState.active) {
+        //         if (snapshot.hasData) {
+        //           // print("main page");
+        //           return const ResponsiveLayout(
+        //             webScreenLayout: WebScreenLayout(),
+        //             mobileScreenLayout: MobileScreenLayout(),
+        //           );
+        //         } else if (snapshot.hasError) {
+        //           return const Center(
+        //             child: Text('error while loading '),
+        //           );
+        //         }
+        //       }
+        //       if (snapshot.connectionState == ConnectionState.waiting) {
+        //         return const Center(
+        //           child: CircularProgressIndicator(
+        //             color: primaryColor,
+        //           ),
+        //         );
+        //       }
+        //       return const LoginScreen();
+        //     }),
       ),
     );
   }

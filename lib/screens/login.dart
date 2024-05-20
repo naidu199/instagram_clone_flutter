@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -112,8 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: _isloading
                     ? const Center(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
+                        child: CupertinoActivityIndicator(
                           color: primaryColor,
                         ),
                       )
