@@ -36,6 +36,7 @@ class AuthSignUp {
             .uploadImageToStorage('profilepic', profilepic!, false);
         //adding user to database
         UserDetails userDetails = UserDetails(
+            bio: '',
             uid: cred.user!.uid,
             username: username,
             email: email,

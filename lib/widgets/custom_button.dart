@@ -6,9 +6,11 @@ class CustomButton extends StatelessWidget {
   final Color backgroundcolor;
   final Color textColor;
   final Function() function;
+  final double width;
   const CustomButton(
       {super.key,
       required this.function,
+      required this.width,
       required this.text,
       required this.backgroundcolor,
       required this.textColor});
@@ -22,7 +24,7 @@ class CustomButton extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(3),
         padding: const EdgeInsets.all(8),
-        width: 150,
+        width: width,
         height: 35,
         decoration: BoxDecoration(
             color: backgroundcolor,

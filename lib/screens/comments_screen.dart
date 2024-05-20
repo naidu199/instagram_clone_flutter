@@ -57,6 +57,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   return CommentCard(
+                    postId: widget.snapshot['postId'],
                     snapshot: snapshot.data!.docs[index].data(),
                   );
                 });

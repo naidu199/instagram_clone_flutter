@@ -11,6 +11,7 @@ import 'package:instagram_clone/model/user.dart';
 // import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/like_animation.dart';
 import 'package:intl/intl.dart';
@@ -50,6 +51,7 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     final UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
     return Container(
       color: mobileBackgroundColor,
@@ -123,7 +125,9 @@ class _PostCardState extends State<PostCard> {
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.35,
+                  height: MediaQuery.of(context).size.width > webscreensize
+                      ? MediaQuery.of(context).size.height * 0.5
+                      : MediaQuery.of(context).size.height * 0.3,
                   width: double.infinity,
                   child: Image(
                     image: NetworkImage(
@@ -133,11 +137,11 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
                 AnimatedOpacity(
-                  duration: const Duration(milliseconds: 400),
+                  duration: const Duration(milliseconds: 300),
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                       isAnimating: isLikeAnimating,
-                      duration: const Duration(milliseconds: 400),
+                      duration: const Duration(milliseconds: 300),
                       onEnd: () {
                         setState(() {
                           isLikeAnimating = false;
@@ -178,10 +182,12 @@ class _PostCardState extends State<PostCard> {
                 ),
               ),
               IconButton(
-                  onPressed: () => Navigator.of(context)
+                  onPressed: () => width > webscreensize
+                      ? commentDialog(context)
+                      : Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
-                        return CommentsScreen(snapshot: widget.snapshot);
-                      })),
+                          return CommentsScreen(snapshot: widget.snapshot);
+                        })),
                   icon: const Icon(
                     Icons.message_rounded,
                     size: 32,
@@ -244,9 +250,11 @@ class _PostCardState extends State<PostCard> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 4),
                     child: InkWell(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              CommentsScreen(snapshot: widget.snapshot))),
+                      onTap: () => width > webscreensize
+                          ? commentDialog(context)
+                          : Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  CommentsScreen(snapshot: widget.snapshot))),
                       child: Text(
                         "view all $commentsLength comments ",
                         style: const TextStyle(
@@ -271,6 +279,27 @@ class _PostCardState extends State<PostCard> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Future<dynamic> commentDialog(BuildContext context) {
+    return showDialog(
+      useSafeArea: false,
+      barrierColor: Colors.black12,
+      context: context,
+      builder: (context) => Align(
+        alignment: Alignment.bottomRight,
+        child: AlertDialog(
+            scrollable: true,
+            contentPadding: const EdgeInsets.all(0),
+            alignment: const Alignment(1, 1),
+            content: Container(
+              height: 580,
+              margin: const EdgeInsets.all(0),
+              width: 350,
+              child: CommentsScreen(snapshot: widget.snapshot),
+            )),
       ),
     );
   }
