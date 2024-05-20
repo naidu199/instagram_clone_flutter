@@ -9,6 +9,7 @@ import 'package:instagram_clone/backend/storage/firestore_methods.dart';
 // import 'package:instagram_clone/model/user.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/custom_button.dart';
@@ -155,7 +156,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   function: () {},
                                   text: 'Edit',
                                   backgroundcolor: mobileBackgroundColor,
-                                  textColor: primaryColor)
+                                  textColor: primaryColor,
+                                  width: MediaQuery.of(context).size.width >
+                                          webscreensize
+                                      ? 200
+                                      : 150,
+                                )
                               : isFollowing
                                   ? CustomButton(
                                       function: () async {
@@ -169,7 +175,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       },
                                       text: 'following',
                                       backgroundcolor: Colors.white,
-                                      textColor: Colors.black)
+                                      textColor: Colors.black,
+                                      width: MediaQuery.of(context).size.width >
+                                              webscreensize
+                                          ? 200
+                                          : 150,
+                                    )
                                   : CustomButton(
                                       function: () async {
                                         await FireStoreMethods()
@@ -181,12 +192,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       },
                                       text: 'follow',
                                       backgroundcolor: Colors.blue,
-                                      textColor: primaryColor),
+                                      textColor: primaryColor,
+                                      width: MediaQuery.of(context).size.width >
+                                              webscreensize
+                                          ? 200
+                                          : 150,
+                                    ),
                           CustomButton(
-                              function: () {},
-                              text: 'share',
-                              backgroundcolor: mobileBackgroundColor,
-                              textColor: primaryColor),
+                            function: () {},
+                            text: 'share',
+                            backgroundcolor: mobileBackgroundColor,
+                            textColor: primaryColor,
+                            width: MediaQuery.of(context).size.width >
+                                    webscreensize
+                                ? 200
+                                : 150,
+                          ),
                         ],
                       ),
                       const Divider(),

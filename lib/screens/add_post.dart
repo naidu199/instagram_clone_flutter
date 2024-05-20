@@ -6,6 +6,7 @@ import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firebase_post_storage.dart';
 import 'package:instagram_clone/model/user.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:provider/provider.dart';
@@ -98,6 +99,7 @@ class _AddPostState extends State<AddPost> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
     // final UserDetails userDetails =
     //     Provider.of<UserProvider>(context).getUserDetails;
     // print(userDetails.profileUrl);
@@ -105,12 +107,15 @@ class _AddPostState extends State<AddPost> {
       UserDetails userDetails = value.getUser;
       return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: mobileBackgroundColor,
-          leading: IconButton(
-              onPressed: () {
-                clearPickedImage();
-              },
-              icon: const Icon(Icons.arrow_back)),
+          leading: pickedImage != null
+              ? IconButton(
+                  onPressed: () {
+                    clearPickedImage();
+                  },
+                  icon: const Icon(Icons.arrow_back))
+              : null,
           title: const Text("New Post"),
           centerTitle: false,
           actions: [
@@ -150,7 +155,8 @@ class _AddPostState extends State<AddPost> {
                         backgroundImage: NetworkImage(userDetails.profileUrl),
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.45,
+                        width:
+                            width > webscreensize ? width * 0.25 : width * 0.45,
                         child: TextField(
                           controller: discriptionController,
                           decoration: const InputDecoration(

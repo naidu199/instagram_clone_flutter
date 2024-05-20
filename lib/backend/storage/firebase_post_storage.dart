@@ -72,11 +72,39 @@ class FireStorePostStorage {
           'profileUrl': profileUrl,
           'commentText': commentText,
           'userId': uid,
+          'likes': [],
           'commentId': commentId,
           'timestamp': DateTime.now()
         });
       } else {
         print('error in comment ');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> likesComment(
+      String postId, String uid, List likes, String commentId) async {
+    try {
+      if (likes.contains(uid)) {
+        await _firebaseFirestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .update({
+          'likes': FieldValue.arrayRemove([uid]),
+        });
+      } else {
+        await _firebaseFirestore
+            .collection('posts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .update({
+          'likes': FieldValue.arrayUnion([uid]),
+        });
       }
     } catch (e) {
       print(e.toString());

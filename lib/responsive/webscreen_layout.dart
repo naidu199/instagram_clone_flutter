@@ -1,8 +1,18 @@
 // import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:instagram_clone/backend/providers/user_providers.dart';
+import 'package:instagram_clone/model/user.dart';
+import 'package:instagram_clone/screens/add_post.dart';
+import 'package:instagram_clone/screens/feed_screen.dart';
+import 'package:instagram_clone/screens/profile.dart';
+import 'package:instagram_clone/screens/search_screen.dart';
+import 'package:instagram_clone/screens/suggestion_user.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/widgets/post_feed.dart';
+import 'package:provider/provider.dart';
 
 class WebScreenLayout extends StatefulWidget {
   const WebScreenLayout({super.key});
@@ -12,11 +22,28 @@ class WebScreenLayout extends StatefulWidget {
 }
 
 class _WebScreenLayoutState extends State<WebScreenLayout> {
+  final SideMenuController _controller = SideMenuController();
+  int _currentIndex = 0;
+
+  final List<Widget> pages = [
+    const PostFeed(),
+    const SearchScreen(),
+    Container(color: Colors.yellow),
+    Container(
+      color: Colors.purple,
+    ),
+    Container(
+      color: Colors.green,
+    ),
+    const AddPost(),
+    ProfileScreen(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final SideMenuController _controller = SideMenuController();
-    int _currentIndex = 0;
-
+    UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       body: Row(
         children: [
@@ -56,7 +83,9 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                       ),
                       selectedIcon: const Icon(Icons.home),
                       selectedTitleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
                       // badgeContent: const Text(
                       //   '23',
                       //   style: TextStyle(
@@ -72,7 +101,9 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                       title: 'Search',
                       hoverColor: Colors.white38,
                       selectedTitleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
                       icon: const Icon(
                         Icons.search_outlined,
                         color: secondaryColor,
@@ -92,7 +123,9 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                       hoverColor: Colors.white38,
                       itemHeight: 40,
                       selectedTitleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
                       icon: Padding(
                         padding: const EdgeInsets.all(8),
                         child: SvgPicture.asset(
@@ -121,7 +154,9 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                       title: 'Messages',
                       hoverColor: Colors.white38,
                       selectedTitleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
                       icon: const Icon(Icons.chat_bubble_outline),
                       selectedIcon: const Icon(Icons.chat_bubble),
                       titleStyle:
@@ -134,7 +169,9 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                       title: 'Notifications',
                       hoverColor: Colors.white38,
                       selectedTitleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
                       icon: const Icon(Icons.favorite_border),
                       selectedIcon: const Icon(Icons.favorite),
                       titleStyle:
@@ -147,17 +184,36 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
                       title: 'Create',
                       hoverColor: Colors.white38,
                       selectedTitleStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: primaryColor),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
                       icon: const Icon(Icons.add_box_outlined),
                       selectedIcon: const Icon(Icons.add_box_sharp),
                       titleStyle:
                           const TextStyle(color: secondaryColor, fontSize: 18),
                     ),
+                    SideMenuItemDataTile(
+                      margin: const EdgeInsetsDirectional.only(top: 10),
+                      isSelected: _currentIndex == 6,
+                      onTap: () => setState(() => _currentIndex = 6),
+                      title: 'Profile',
+                      hoverColor: Colors.white38,
+                      selectedTitleStyle: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor),
+                      icon: const Icon(Icons.person_2_outlined),
+                      selectedIcon: const Icon(Icons.person_2),
+                      titleStyle:
+                          const TextStyle(color: secondaryColor, fontSize: 18),
+                    ),
                   ],
-                  footer: const ListTile(
-                    leading: CircleAvatar(),
-                    title: Text("username"),
-                    subtitle: Text("name"),
+                  footer: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(userDetails.profileUrl),
+                    ),
+                    title: Text(userDetails.username),
+                    subtitle: Text(userDetails.bio),
                   ),
                 );
               },
@@ -165,30 +221,15 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
           ),
           Expanded(
             child: Container(
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'body',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      _controller.toggle();
-                    },
-                    child: const Text('change side menu state'),
-                  )
-                ],
-              ),
+              color: mobileBackgroundColor,
+              child: pages[_currentIndex],
             ),
           ),
           SideMenu(
-            maxWidth: 300,
+            maxWidth: 380,
             position: SideMenuPosition.right,
             builder: (data) => const SideMenuData(
-              customChild: Text('custom view'),
+              customChild: SuggestionScreen(),
             ),
           ),
         ],

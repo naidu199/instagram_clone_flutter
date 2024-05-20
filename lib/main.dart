@@ -42,42 +42,33 @@ class MyApp extends StatelessWidget {
         //   mobileScreenLayout: MobileScreenLayout(),
         // ),
         routes: AppRoutes.routes,
-        home: const WebScreenLayout(),
-        // home: StreamBuilder(
-        //     stream: FirebaseAuth.instance.authStateChanges(),
-        //     builder: (context, snapshot) {
-        //       if (snapshot.connectionState == ConnectionState.active) {
-        //         if (snapshot.hasData) {
-        //           // print("main page");
-        //           return const ResponsiveLayout(
-        //             webScreenLayout: WebScreenLayout(),
-        //             mobileScreenLayout: MobileScreenLayout(),
-        //           );
-        //         } else if (snapshot.hasError) {
-        //           return const Center(
-        //             child: Text('error while loading '),
-        //           );
-        //         }
-        //       }
-        //       if (snapshot.connectionState == ConnectionState.waiting) {
-        //         return const Center(
-        //           child: CircularProgressIndicator(
-        //             color: primaryColor,
-        //           ),
-        //         );
-        //       }
-        //       return const LoginScreen();
-        //     }),
+        // home: const WebScreenLayout(),
+        home: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.hasData) {
+                  // print("main page");
+                  return const ResponsiveLayout(
+                    webScreenLayout: WebScreenLayout(),
+                    mobileScreenLayout: MobileScreenLayout(),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('error while loading '),
+                  );
+                }
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: primaryColor,
+                  ),
+                );
+              }
+              return const LoginScreen();
+            }),
       ),
     );
   }
 }
-
-// class MyHomePage extends StatelessWidget {
-//   const MyHomePage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Placeholder();
-//   }
-// }

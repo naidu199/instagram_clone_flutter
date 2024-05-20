@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -71,18 +72,39 @@ class _SearchScreenState extends State<SearchScreen> {
                 final List<DocumentSnapshot<Map<String, dynamic>>> users =
                     snapshot.data!.docs;
                 // print(users);
+                final double width = MediaQuery.of(context).size.width;
                 return ListView.builder(
                     itemCount: users.length,
                     itemBuilder: (context, index) {
                       final userData = users[index].data()!;
 
                       return InkWell(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ProfileScreen(uid: userData['uid']),
-                          ),
-                        ),
+                        onTap: () => width > webscreensize
+                            ? showDialog(
+                                useSafeArea: false,
+                                barrierColor: Colors.black12,
+                                context: context,
+                                builder: (context) => Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: AlertDialog(
+                                      scrollable: true,
+                                      contentPadding: const EdgeInsets.all(0),
+                                      alignment: const Alignment(1, 0),
+                                      content: Container(
+                                        height: 580,
+                                        margin: const EdgeInsets.all(0),
+                                        width: width * 0.45,
+                                        child:
+                                            ProfileScreen(uid: userData['uid']),
+                                      )),
+                                ),
+                              )
+                            : Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProfileScreen(uid: userData['uid']),
+                                ),
+                              ),
                         child: ListTile(
                           key: UniqueKey(),
                           leading: CircleAvatar(

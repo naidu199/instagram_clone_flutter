@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/post_card.dart';
+import 'package:instagram_clone/widgets/post_feed.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen({super.key});
@@ -36,23 +37,7 @@ class FeedScreen extends StatelessWidget {
           )
         ],
       ),
-      body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('posts').snapshots(),
-          builder: (context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  return PostCard(
-                    snapshot: snapshot.data!.docs[index].data(),
-                  );
-                });
-          }),
+      body: const PostFeed(),
     );
   }
 }

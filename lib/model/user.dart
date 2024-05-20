@@ -9,11 +9,11 @@ class UserDetails {
   final String profileUrl;
   final List followers;
   final List following;
-  // final String bio;
+  final String bio;
 
   UserDetails(
-      // this.bio,
-      {required this.uid,
+      {required this.bio,
+      required this.uid,
       required this.username,
       required this.email,
       required this.profileUrl,
@@ -33,7 +33,7 @@ class UserDetails {
   static UserDetails fromSnapshot(DocumentSnapshot documentSnapshot) {
     var snapshot = documentSnapshot.data() as Map<String, dynamic>;
     return UserDetails(
-        // snapshot['bio'] ?? "",
+        bio: snapshot['bio'] ?? "",
         uid: snapshot['uid'],
         username: snapshot['username'],
         email: snapshot['email'],
