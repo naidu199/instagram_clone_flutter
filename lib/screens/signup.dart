@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/backend/authentication/auth_signup.dart';
 import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/text_input.dart';
@@ -70,7 +72,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: MediaQuery.of(context).size.width > webscreensize
+            ? EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 3)
+            : const EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         child: Stack(
           children: [
@@ -166,7 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     child: _islaoding
                         ? const Center(
-                            child: CircularProgressIndicator(
+                            child: CupertinoActivityIndicator(
                               color: primaryColor,
                             ),
                           )
