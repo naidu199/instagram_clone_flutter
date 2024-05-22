@@ -3,9 +3,13 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firestore_methods.dart';
+import 'package:instagram_clone/screens/post_view.dart';
 // import 'package:instagram_clone/model/user.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/utils/colors.dart';
@@ -13,6 +17,7 @@ import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/custom_button.dart';
+import 'package:instagram_clone/widgets/post_card.dart';
 // import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -76,182 +81,224 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Scaffold(
-            backgroundColor: mobileBackgroundColor,
-            appBar: AppBar(
+        : DefaultTabController(
+            length: 3,
+            child: Scaffold(
               backgroundColor: mobileBackgroundColor,
-              title: Text(userData['username'] ?? "username"),
-              centerTitle: false,
-            ),
-            body: ListView(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Stack(
-                            children: [
-                              profileImage != null
-                                  ? CircleAvatar(
-                                      radius: 50,
-                                      backgroundImage:
-                                          MemoryImage(profileImage!),
-                                    )
-                                  : CircleAvatar(
-                                      radius: 50,
-                                      backgroundImage: NetworkImage(userData[
-                                              'profileImage'] ??
-                                          "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"),
-                                    ),
-                              Positioned(
-                                  bottom: -1,
-                                  right: -10,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      selectImage();
-                                    },
-                                    icon: const Icon(
-                                      Icons.add_a_photo,
-                                      size: 20,
-                                    ),
-                                  ))
-                            ],
-                          ),
-                          const SizedBox(
-                              width:
-                                  10), // Add spacing between avatar and columns
-                          Expanded(
-                            flex: 1,
-                            child: Column(
+              appBar: AppBar(
+                backgroundColor: mobileBackgroundColor,
+                title: Text(userData['username'] ?? "username"),
+                centerTitle: false,
+              ),
+              body: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Stack(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    customColumn(noOfPosts, 'Posts'),
-                                    customColumn(noOfFollowers, 'Followers'),
-                                    customColumn(noOfFollowing, 'Following'),
-                                  ],
-                                ),
+                                profileImage != null
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage:
+                                            MemoryImage(profileImage!),
+                                      )
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(userData[
+                                                'profileImage'] ??
+                                            "https://as2.ftcdn.net/v2/jpg/02/15/84/43/1000_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg"),
+                                      ),
+                                Positioned(
+                                    bottom: -1,
+                                    right: -10,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        selectImage();
+                                      },
+                                      icon: const Icon(
+                                        Icons.add_a_photo,
+                                        size: 20,
+                                      ),
+                                    ))
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                      Text(userData['username'] ?? "username"),
-                      Text(userData['bio'] != "" ? userData['bio'] : "bio"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          user!.uid == widget.uid
-                              ? CustomButton(
-                                  function: () {},
-                                  text: 'Edit',
-                                  backgroundcolor: mobileBackgroundColor,
-                                  textColor: primaryColor,
-                                  width: MediaQuery.of(context).size.width >
-                                          webscreensize
-                                      ? 200
-                                      : 150,
-                                )
-                              : isFollowing
-                                  ? CustomButton(
-                                      function: () async {
-                                        await FireStoreMethods()
-                                            .followUser(user!.uid, widget.uid);
+                            const SizedBox(
+                                width:
+                                    10), // Add spacing between avatar and columns
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      customColumn(noOfPosts, 'Posts'),
+                                      customColumn(noOfFollowers, 'Followers'),
+                                      customColumn(noOfFollowing, 'Following'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(userData['username'] ?? "username"),
+                        Text(userData['bio'] != "" ? userData['bio'] : "bio"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            user!.uid == widget.uid
+                                ? CustomButton(
+                                    function: () {},
+                                    text: 'Edit',
+                                    backgroundcolor: mobileBackgroundColor,
+                                    textColor: primaryColor,
+                                    width: MediaQuery.of(context).size.width >
+                                            webscreensize
+                                        ? 200
+                                        : 150,
+                                  )
+                                : isFollowing
+                                    ? CustomButton(
+                                        function: () async {
+                                          await FireStoreMethods().followUser(
+                                              user!.uid, widget.uid);
 
-                                        setState(() {
-                                          isFollowing = false;
-                                          noOfFollowers--;
-                                        });
-                                      },
-                                      text: 'following',
-                                      backgroundcolor: Colors.white,
-                                      textColor: Colors.black,
-                                      width: MediaQuery.of(context).size.width >
-                                              webscreensize
-                                          ? 200
-                                          : 150,
-                                    )
-                                  : CustomButton(
-                                      function: () async {
-                                        await FireStoreMethods()
-                                            .followUser(user!.uid, widget.uid);
-                                        setState(() {
-                                          isFollowing = true;
-                                          noOfFollowers++;
-                                        });
-                                      },
-                                      text: 'follow',
-                                      backgroundcolor: Colors.blue,
-                                      textColor: primaryColor,
-                                      width: MediaQuery.of(context).size.width >
-                                              webscreensize
-                                          ? 200
-                                          : 150,
-                                    ),
-                          CustomButton(
-                            function: () {},
-                            text: 'share',
-                            backgroundcolor: mobileBackgroundColor,
-                            textColor: primaryColor,
-                            width: MediaQuery.of(context).size.width >
-                                    webscreensize
-                                ? 200
-                                : 150,
+                                          setState(() {
+                                            isFollowing = false;
+                                            noOfFollowers--;
+                                          });
+                                        },
+                                        text: 'following',
+                                        backgroundcolor: Colors.white,
+                                        textColor: Colors.black,
+                                        width:
+                                            MediaQuery.of(context).size.width >
+                                                    webscreensize
+                                                ? 200
+                                                : 150,
+                                      )
+                                    : CustomButton(
+                                        function: () async {
+                                          await FireStoreMethods().followUser(
+                                              user!.uid, widget.uid);
+                                          setState(() {
+                                            isFollowing = true;
+                                            noOfFollowers++;
+                                          });
+                                        },
+                                        text: 'follow',
+                                        backgroundcolor: Colors.blue,
+                                        textColor: primaryColor,
+                                        width:
+                                            MediaQuery.of(context).size.width >
+                                                    webscreensize
+                                                ? 200
+                                                : 150,
+                                      ),
+                            CustomButton(
+                              function: () {},
+                              text: 'share',
+                              backgroundcolor: mobileBackgroundColor,
+                              textColor: primaryColor,
+                              width: MediaQuery.of(context).size.width >
+                                      webscreensize
+                                  ? 200
+                                  : 150,
+                            ),
+                          ],
+                        ),
+                        const Divider(),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 35,
+                          child: TabBar(
+                            unselectedLabelColor: secondaryColor,
+                            labelColor: primaryColor,
+                            indicatorColor: primaryColor,
+                            tabs: [
+                              const Icon(
+                                Icons.grid_on,
+                                size: 32,
+                              ),
+                              SvgPicture.asset(
+                                'assets/instagram-reels-icon.svg',
+                                color: secondaryColor,
+                                height: 32,
+                                width: 32,
+                              ),
+                              const Icon(
+                                Icons.person,
+                                size: 32,
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                      const Divider(),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      FutureBuilder(
-                          future: firestore
-                              .collection('posts')
-                              .where('uid', isEqualTo: widget.uid)
-                              .get(),
-                          builder: (context,
-                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                                  snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            return GridView.builder(
-                                shrinkWrap: true,
-                                itemCount: snapshot.data!.docs.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 5,
-                                  mainAxisSpacing: 3,
-                                  childAspectRatio: 1,
-                                ),
-                                itemBuilder: ((context, index) {
-                                  var snap = snapshot.data!.docs[index].data();
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        // const Divider(),
+                        StreamBuilder(
+                            stream: firestore
+                                .collection('posts')
+                                .where('uid', isEqualTo: widget.uid)
+                                .snapshots(),
+                            builder: (context,
+                                AsyncSnapshot<
+                                        QuerySnapshot<Map<String, dynamic>>>
+                                    snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                              return GridView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: snapshot.data!.docs.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 3,
+                                    childAspectRatio: 1,
+                                  ),
+                                  itemBuilder: ((context, index) {
+                                    var snap =
+                                        snapshot.data!.docs[index].data();
 
-                                  return Container(
-                                    child: Image(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(snap['postUrl'])),
-                                  );
-                                }));
-                          }),
-                    ],
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PostView(snapshot: snap)));
+                                      },
+                                      child: Image(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(snap['postUrl'])),
+                                    );
+                                  }));
+                            }),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
   }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:instagram_clone/screens/post_view.dart';
 import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/global_consts.dart';
@@ -138,8 +139,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     final post = posts[index].data();
                     return ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      child: Image(
-                        image: NetworkImage(post!['postUrl']),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PostView(snapshot: post)));
+                        },
+                        child: Image(
+                          image: NetworkImage(post!['postUrl']),
+                        ),
                       ),
                       //   image: NetworkImage(
                       //       'https://source.unsplash.com/random?sig=$index'),
