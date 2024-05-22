@@ -7,6 +7,8 @@ class PostView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PostCard(snapshot: snapshot);
+    return Scaffold(
+      body: SafeArea(child: PostCard(snapshot: snapshot)),
+    );
   }
 }

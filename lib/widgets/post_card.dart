@@ -10,6 +10,7 @@ import 'package:instagram_clone/backend/storage/firebase_post_storage.dart';
 import 'package:instagram_clone/model/user.dart';
 // import 'package:instagram_clone/routes/approutes.dart';
 import 'package:instagram_clone/screens/comments_screen.dart';
+import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
@@ -68,18 +69,27 @@ class _PostCardState extends State<PostCard> {
                   backgroundImage:
                       NetworkImage(widget.snapshot['profileImage']),
                 ),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.only(left: 8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(widget.snapshot['username'],
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
-                    ],
-                  ),
-                )),
+                InkWell(
+                  onTap: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return ProfileScreen(
+                      uid: widget.snapshot['uid'],
+                    );
+                  })),
+                  child: Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.snapshot['username'],
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  )),
+                ),
                 IconButton(
                     onPressed: () {
                       showDialog(
@@ -184,10 +194,11 @@ class _PostCardState extends State<PostCard> {
               IconButton(
                   onPressed: () => width > webscreensize
                       ? commentDialog(context)
-                      : Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                          return CommentsScreen(snapshot: widget.snapshot);
-                        })),
+                      : commentBottomSheet(context),
+                  // : Navigator.of(context)
+                  //     .push(MaterialPageRoute(builder: (context) {
+                  //     return CommentsScreen(snapshot: widget.snapshot);
+                  //   })),
                   icon: const Icon(
                     Icons.message_rounded,
                     size: 32,
@@ -252,9 +263,11 @@ class _PostCardState extends State<PostCard> {
                     child: InkWell(
                       onTap: () => width > webscreensize
                           ? commentDialog(context)
-                          : Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  CommentsScreen(snapshot: widget.snapshot))),
+                          : commentBottomSheet(context),
+
+                      //  Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (context) =>
+                      //         CommentsScreen(snapshot: widget.snapshot))),
                       child: Text(
                         "view all $commentsLength comments ",
                         style: const TextStyle(
@@ -280,6 +293,28 @@ class _PostCardState extends State<PostCard> {
           )
         ],
       ),
+    );
+  }
+
+  PersistentBottomSheetController commentBottomSheet(BuildContext context) {
+    return showBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: DraggableScrollableSheet(
+            maxChildSize: 0.9,
+            initialChildSize: 0.6,
+            minChildSize: 0.2,
+            builder: (context, scrollController) {
+              return CommentsScreen(snapshot: widget.snapshot);
+            },
+          ),
+        );
+      },
     );
   }
 
