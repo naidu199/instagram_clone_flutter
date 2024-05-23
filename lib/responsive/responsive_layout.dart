@@ -28,7 +28,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
     setState(() {
       isloading = true;
     });
-    await Future.delayed(const Duration(seconds: 30));
+    await Future.delayed(const Duration(seconds: 4));
     UserProvider userProvider = Provider.of(context, listen: false);
     await userProvider.refreshUserDetails();
     if (mounted) {
