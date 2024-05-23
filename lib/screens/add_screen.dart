@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:instagram_clone/screens/add_post_mobile.dart';
 import 'package:instagram_clone/screens/add_reel.dart';
 import 'package:instagram_clone/utils/colors.dart';

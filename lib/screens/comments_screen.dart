@@ -51,7 +51,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
               );
             }
             if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             return ListView.builder(
                 itemCount: snapshot.data!.docs.length,

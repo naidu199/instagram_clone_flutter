@@ -1,14 +1,11 @@
 // import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_side_menu/flutter_side_menu.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/model/user.dart';
 import 'package:instagram_clone/screens/add_post.dart';
-import 'package:instagram_clone/screens/feed_screen.dart';
 import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/screens/reels_screen.dart';
 import 'package:instagram_clone/screens/search_screen.dart';
@@ -31,7 +28,7 @@ class _WebScreenLayoutState extends State<WebScreenLayout> {
   final List<Widget> pages = [
     const PostFeed(),
     const SearchScreen(),
-    ReelsScreen(),
+    const ReelsScreen(),
     Container(
       color: Colors.purple,
     ),

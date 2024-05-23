@@ -1,13 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/model/reel.dart';
 // import 'package:instagram_clone/model/reel.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/widgets/reel_details.dart';
 import 'package:instagram_clone/widgets/reels_action_bar.dart';
-import 'package:instagram_clone/widgets/video_player.dart';
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -73,7 +70,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                         //     ),
                         //   ),
                         // ),
-                        const Column(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Row(

@@ -48,14 +48,14 @@ class ReelDetails extends StatelessWidget {
             dense: true,
             minLeadingWidth: 0,
             horizontalTitleGap: 6,
-            leading: Icon(
+            leading: const Icon(
               Icons.graphic_eq_outlined,
               size: 16,
               color: primaryColor,
             ),
             title: Row(
               children: [
-                Container(
+                SizedBox(
                   height: 20,
                   width: 150,
                   child: Marquee(
@@ -69,7 +69,7 @@ class ReelDetails extends StatelessWidget {
                   ),
                 ),
                 const Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: EdgeInsets.only(left: 10.0),
                   child: Icon(
                     Icons.person_outline_outlined,
                     color: primaryColor,

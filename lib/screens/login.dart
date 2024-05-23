@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/authentication/auth_login.dart';
@@ -130,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
             //   flex: 1,
             //   child: Container(),
             // ),
-            Spacer(),
+            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -158,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 )
               ],
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       )),

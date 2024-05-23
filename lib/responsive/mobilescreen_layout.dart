@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/model/user.dart';
 import 'package:instagram_clone/screens/add_post.dart';
-import 'package:instagram_clone/screens/add_screen.dart';
 import 'package:instagram_clone/screens/feed_screen.dart';
 import 'package:instagram_clone/screens/profile.dart';
 import 'package:instagram_clone/screens/reels_screen.dart';
@@ -26,11 +25,11 @@ class MobileScreenLayout extends StatefulWidget {
 class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   int _seletedIndex = 0;
   final List<Widget> pages = [
-    FeedScreen(),
-    SearchScreen(),
-    AddPost(),
+    const FeedScreen(),
+    const SearchScreen(),
+    const AddPost(),
     // AddScreen(),
-    ReelsScreen(),
+    const ReelsScreen(),
     // Container(color: Colors.yellow),
     ProfileScreen(
       uid: FirebaseAuth.instance.currentUser!.uid,

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firestore_methods.dart';
 import 'package:instagram_clone/model/user.dart';

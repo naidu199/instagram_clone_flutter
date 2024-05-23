@@ -1,9 +1,6 @@
-import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firebase_post_storage.dart';
@@ -175,7 +172,7 @@ class _PostCardState extends State<PostCard> {
                       ),
                       errorBuilder: (context, error, stackTrace) {
                         print('Error loading image: $error');
-                        return Icon(Icons.error);
+                        return const Icon(Icons.error);
                       },
                     )),
                 AnimatedOpacity(
@@ -265,11 +262,11 @@ class _PostCardState extends State<PostCard> {
                 DefaultTextStyle(
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2!
+                      .titleSmall!
                       .copyWith(fontWeight: FontWeight.w800),
                   child: Text(
                     '${widget.snapshot['likes'].length} likes',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
                 Container(

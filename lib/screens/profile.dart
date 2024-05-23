@@ -3,13 +3,10 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firestore_methods.dart';
-import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/screens/post_view.dart';
 // import 'package:instagram_clone/model/user.dart';
 // import 'package:flutter/widgets.dart';
@@ -18,7 +15,6 @@ import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/utils/image_picker.dart';
 import 'package:instagram_clone/utils/snackbars.dart';
 import 'package:instagram_clone/widgets/custom_button.dart';
-import 'package:instagram_clone/widgets/post_card.dart';
 // import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {

@@ -97,11 +97,11 @@ class _CommentCardState extends State<CommentCard> {
                 DefaultTextStyle(
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2!
+                      .titleSmall!
                       .copyWith(fontWeight: FontWeight.w800),
                   child: Text(
                     '${widget.snapshot['likes'].length}',
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 )
               ],

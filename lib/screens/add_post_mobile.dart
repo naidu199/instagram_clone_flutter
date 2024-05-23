@@ -43,15 +43,15 @@ class _AddPostMobileState extends State<AddPostMobile> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Permission Denied'),
-          content: Text('This app needs photo access to upload images.'),
+          title: const Text('Permission Denied'),
+          content: const Text('This app needs photo access to upload images.'),
           actions: [
             TextButton(
               onPressed: () async {
                 Navigator.of(context).pop();
                 await PhotoManager.openSetting();
               },
-              child: Text('Open Settings'),
+              child: const Text('Open Settings'),
             ),
           ],
         );
@@ -166,10 +166,10 @@ class _AddPostMobileState extends State<AddPostMobile> {
               width: double.infinity,
               height: 40,
               color: mobileBackgroundColor,
-              child: Row(
+              child: const Row(
                 children: [
-                  const SizedBox(width: 10),
-                  const Text(
+                  SizedBox(width: 10),
+                  Text(
                     'Recent',
                     style: TextStyle(
                       fontSize: 15,
