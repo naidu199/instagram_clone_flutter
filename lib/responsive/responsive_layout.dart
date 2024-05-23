@@ -28,7 +28,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
     setState(() {
       isloading = true;
     });
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 2));
     UserProvider userProvider = Provider.of(context, listen: false);
     await userProvider.refreshUserDetails();
     if (mounted) {
@@ -36,8 +36,6 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
         isloading = false;
       });
     }
-    // print(3);
-    // print(userProvider.getUser.profileUrl);
   }
 
   @override
@@ -73,7 +71,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
                     gradient: LinearGradient(colors: [Colors.red, Colors.blue]),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   )
                 ],
               ),

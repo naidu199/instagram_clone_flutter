@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:instagram_clone/model/reel.dart';
 // import 'package:instagram_clone/model/reel.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
 import 'package:instagram_clone/widgets/reel_details.dart';
 import 'package:instagram_clone/widgets/reels_action_bar.dart';
 import 'package:instagram_clone/widgets/video_player.dart';
@@ -18,6 +19,7 @@ class ReelsScreen extends StatefulWidget {
 class _ReelsScreenState extends State<ReelsScreen> {
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: mobileBackgroundColor,
@@ -46,52 +48,55 @@ class _ReelsScreenState extends State<ReelsScreen> {
             scrollDirection: Axis.vertical,
             itemCount: dummyReels.length,
             itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: mobileBackgroundColor),
-                    image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image: NetworkImage(
-                            'https://source.unsplash.com/random?sig=$index'))),
-                child: Center(
-                  child: Stack(
-                    children: [
-                      // VideoPlayerWidget(url: 'url'),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.black.withOpacity(0.2),
-                              Colors.transparent
-                            ],
-                            begin: const Alignment(0, -0.75),
-                            end: const Alignment(0, 0.1),
-                          ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Flexible(
-                                flex: 12,
-                                child: ReelDetails(
-                                    // reel: dummyReels[index],
-                                    ),
-                              ),
-                              Flexible(
-                                flex: 2,
-                                child: ReelsActionBar(
-                                    // reel: dummyReels[index],
-                                    ),
-                              )
-                            ],
-                          )
-                        ],
-                      )
-                    ],
+              return Center(
+                child: Container(
+                  width: width > webscreensize ? 400 : width,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: mobileBackgroundColor),
+                      image: DecorationImage(
+                          fit: BoxFit.fitHeight,
+                          image: NetworkImage(
+                              'https://source.unsplash.com/random?sig=$index'))),
+                  child: const Center(
+                    child: Stack(
+                      children: [
+                        // VideoPlayerWidget(url: 'url'),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     gradient: LinearGradient(
+                        //       colors: [
+                        //         Colors.black.withOpacity(0.2),
+                        //         Colors.transparent
+                        //       ],
+                        //       begin: const Alignment(0, -0.75),
+                        //       end: const Alignment(0, 0.1),
+                        //     ),
+                        //   ),
+                        // ),
+                        const Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Flexible(
+                                  flex: 12,
+                                  child: ReelDetails(
+                                      // reel: dummyReels[index],
+                                      ),
+                                ),
+                                Flexible(
+                                  flex: 2,
+                                  child: ReelsActionBar(
+                                      // reel: dummyReels[index],
+                                      ),
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );
