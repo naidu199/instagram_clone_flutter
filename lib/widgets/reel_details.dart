@@ -24,7 +24,7 @@ class ReelDetails extends StatelessWidget {
                   NetworkImage('https://source.unsplash.com/random?sig=299'),
             ),
             title: Text(
-              'username',
+              'naidu199',
               style: TextStyle(
                 color: primaryColor,
                 fontWeight: FontWeight.bold,
@@ -34,7 +34,7 @@ class ReelDetails extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: ExpandableText(
-              'description of the reel ah,u 2,ijoejvv vvvvv  oiifjv oiffoo uvlivj  ihiu2hlijolg vhui hiuh4hliv3wgy33hhgo8yoh3fjflhh uhlgn3yi23tu98lhihggjoiwjugru2y  ug2uyfglhtofluyo87y',
+              "Another cool reel!, Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
               expandText: 'more..',
               collapseText: 'less',
               expandOnTextTap: true,
@@ -61,7 +61,7 @@ class ReelDetails extends StatelessWidget {
                   child: Marquee(
                     scrollAxis: Axis.horizontal,
                     velocity: 10,
-                    text: 'music -- name',
+                    text: 'Awesome Beats--Great Tune',
                     style: const TextStyle(
                       color: primaryColor,
                       fontWeight: FontWeight.bold,
@@ -77,7 +77,7 @@ class ReelDetails extends StatelessWidget {
                   ),
                 ),
                 const Text(
-                  'user name',
+                  'vishnu587',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: TextStyle(

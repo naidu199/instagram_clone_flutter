@@ -24,13 +24,15 @@ class _PostFeedState extends State<PostFeed> {
               child: CircularProgressIndicator(),
             );
           }
-          return ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (context, index) {
-                return PostCard(
-                  snapshot: snapshot.data!.docs[index].data(),
-                );
-              });
+          return Scaffold(
+            body: ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  return PostCard(
+                    snapshot: snapshot.data!.docs[index].data(),
+                  );
+                }),
+          );
         });
   }
 }

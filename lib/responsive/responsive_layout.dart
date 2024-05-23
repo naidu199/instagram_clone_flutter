@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/backend/providers/user_providers.dart';
+import 'package:instagram_clone/utils/global_consts.dart';
+import 'package:instagram_clone/widgets/gradient.dart';
 import 'package:provider/provider.dart';
 
 class ResponsiveLayout extends StatefulWidget {
@@ -26,6 +28,7 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
     setState(() {
       isloading = true;
     });
+    await Future.delayed(const Duration(seconds: 30));
     UserProvider userProvider = Provider.of(context, listen: false);
     await userProvider.refreshUserDetails();
     if (mounted) {
@@ -39,9 +42,42 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return isloading
-        ? const Center(
-            child: CircularProgressIndicator(),
+        ? Scaffold(
+            body: Center(
+              child: Column(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Container(),
+                  ),
+                  Container(
+                    height: width > webscreensize ? 60 : 30,
+                    width: width > webscreensize ? 60 : 30,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/insta_logo.png')),
+                    ),
+                  ),
+                  const Spacer(
+                    flex: 1,
+                  ),
+                  const Text(
+                    'from',
+                    style: TextStyle(color: Colors.white54),
+                  ),
+                  const GradientText(
+                    'naidu199 ',
+                    style: TextStyle(fontSize: 20),
+                    gradient: LinearGradient(colors: [Colors.red, Colors.blue]),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  )
+                ],
+              ),
+            ),
           )
         : LayoutBuilder(
             builder: (context, constraints) {

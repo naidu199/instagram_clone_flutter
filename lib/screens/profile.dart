@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:instagram_clone/backend/providers/user_providers.dart';
 import 'package:instagram_clone/backend/storage/firestore_methods.dart';
+import 'package:instagram_clone/screens/comments_screen.dart';
 import 'package:instagram_clone/screens/post_view.dart';
 // import 'package:instagram_clone/model/user.dart';
 // import 'package:flutter/widgets.dart';
@@ -77,6 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return isloading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -151,7 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Text(userData['username'] ?? "username"),
                         Text(userData['bio'] != "" ? userData['bio'] : "bio"),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
@@ -283,10 +285,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                                     return GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PostView(snapshot: snap)));
+                                        width > webscreensize
+                                            ? showBottomSheet(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding: EdgeInsets.only(
+                                                      bottom:
+                                                          MediaQuery.of(context)
+                                                              .viewInsets
+                                                              .bottom,
+                                                    ),
+                                                    child:
+                                                        DraggableScrollableSheet(
+                                                      maxChildSize: 1,
+                                                      initialChildSize: 1,
+                                                      minChildSize: 0.2,
+                                                      builder: (context,
+                                                          scrollController) {
+                                                        return PostView(
+                                                            snapshot: snap);
+                                                      },
+                                                    ),
+                                                  );
+                                                },
+                                              )
+                                            : Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PostView(
+                                                            snapshot: snap)));
+                                        //TODO
                                       },
                                       child: Image(
                                           fit: BoxFit.cover,

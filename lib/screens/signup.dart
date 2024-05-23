@@ -172,6 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: _islaoding
                         ? const Center(
                             child: CupertinoActivityIndicator(
+                              animating: true,
                               color: primaryColor,
                             ),
                           )

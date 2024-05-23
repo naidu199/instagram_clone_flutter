@@ -50,6 +50,7 @@ dependencies:
   photo_manager: ^3.1.1
   expandable_text: ^2.3.0
   marquee: ^2.2.3
+  video_player: ^2.8.6
 
 
 dev_dependencies:

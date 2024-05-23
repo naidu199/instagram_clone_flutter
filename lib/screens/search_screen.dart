@@ -25,6 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         leading: isUsers
@@ -73,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 final List<DocumentSnapshot<Map<String, dynamic>>> users =
                     snapshot.data!.docs;
                 // print(users);
-                final double width = MediaQuery.of(context).size.width;
+
                 return ListView.builder(
                     itemCount: users.length,
                     itemBuilder: (context, index) {
@@ -81,24 +82,27 @@ class _SearchScreenState extends State<SearchScreen> {
 
                       return InkWell(
                         onTap: () => width > webscreensize
-                            ? showDialog(
-                                useSafeArea: false,
-                                barrierColor: Colors.black12,
+                            ? showBottomSheet(
+                                backgroundColor: Colors.transparent,
                                 context: context,
-                                builder: (context) => Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: AlertDialog(
-                                      scrollable: true,
-                                      contentPadding: const EdgeInsets.all(0),
-                                      alignment: const Alignment(1, 0),
-                                      content: Container(
-                                        height: 580,
-                                        margin: const EdgeInsets.all(0),
-                                        width: width * 0.45,
-                                        child:
-                                            ProfileScreen(uid: userData['uid']),
-                                      )),
-                                ),
+                                builder: (context) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom,
+                                    ),
+                                    child: DraggableScrollableSheet(
+                                      maxChildSize: 1,
+                                      initialChildSize: 1,
+                                      minChildSize: 0.2,
+                                      builder: (context, scrollController) {
+                                        return ProfileScreen(
+                                            uid: userData['uid']);
+                                      },
+                                    ),
+                                  );
+                                },
                               )
                             : Navigator.of(context).push(
                                 MaterialPageRoute(
@@ -138,11 +142,34 @@ class _SearchScreenState extends State<SearchScreen> {
                   itemBuilder: (context, index) {
                     final post = posts[index].data();
                     return ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => PostView(snapshot: post)));
+                          width > webscreensize
+                              ? showBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                        bottom: MediaQuery.of(context)
+                                            .viewInsets
+                                            .bottom,
+                                      ),
+                                      child: DraggableScrollableSheet(
+                                        maxChildSize: 1,
+                                        initialChildSize: 1,
+                                        minChildSize: 0.2,
+                                        builder: (context, scrollController) {
+                                          return PostView(snapshot: post);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                )
+                              : Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      PostView(snapshot: post)));
                         },
                         child: Image(
                           image: NetworkImage(post!['postUrl']),

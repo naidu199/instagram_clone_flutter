@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:instagram_clone/model/reel.dart';
+// import 'package:instagram_clone/model/reel.dart';
 import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/widgets/reel_details.dart';
 import 'package:instagram_clone/widgets/reels_action_bar.dart';
+import 'package:instagram_clone/widgets/video_player.dart';
 
 class ReelsScreen extends StatefulWidget {
   const ReelsScreen({super.key});
@@ -41,18 +44,19 @@ class _ReelsScreenState extends State<ReelsScreen> {
         padding: const EdgeInsets.only(top: 8.0),
         child: PageView.builder(
             scrollDirection: Axis.vertical,
-            itemCount: 10,
+            itemCount: dummyReels.length,
             itemBuilder: (context, index) {
               return Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: mobileBackgroundColor),
                     image: DecorationImage(
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fitHeight,
                         image: NetworkImage(
                             'https://source.unsplash.com/random?sig=$index'))),
                 child: Center(
                   child: Stack(
                     children: [
+                      // VideoPlayerWidget(url: 'url'),
                       Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -65,7 +69,7 @@ class _ReelsScreenState extends State<ReelsScreen> {
                           ),
                         ),
                       ),
-                      const Column(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Row(
@@ -73,11 +77,15 @@ class _ReelsScreenState extends State<ReelsScreen> {
                             children: [
                               Flexible(
                                 flex: 12,
-                                child: ReelDetails(),
+                                child: ReelDetails(
+                                    // reel: dummyReels[index],
+                                    ),
                               ),
                               Flexible(
                                 flex: 2,
-                                child: ReelsActionBar(),
+                                child: ReelsActionBar(
+                                    // reel: dummyReels[index],
+                                    ),
                               )
                             ],
                           )
@@ -91,4 +99,163 @@ class _ReelsScreenState extends State<ReelsScreen> {
       ),
     );
   }
+
+  List<ReelData> dummyReels = [
+    ReelData(
+      description:
+          "Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user123",
+      username: "naidu1909",
+      reelId: "reel001",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel1.mp4",
+      profileUrl: "https://example.com/profiles/testuser1.jpg",
+      likes: 120,
+      musicName: "Cool Music",
+      taggedUsernames: "naidu199",
+    ),
+    ReelData(
+      description:
+          "Another cool reel!, Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user124",
+      username: "naidu2004",
+      reelId: "reel002",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel2.mp4",
+      profileUrl: "https://example.com/profiles/testuser2.jpg",
+      likes: 85,
+      musicName: "Awesome Beats",
+      taggedUsernames: "vishnu578",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Experience unforgettable highlights, laugh-out-loud clips, and captivating scenes. Click play and dive into the excitement!",
+      uid: "user125",
+      username: "vishnu578",
+      reelId: "reel003",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel3.mp4",
+      profileUrl: "https://example.com/profiles/testuser3.jpg",
+      likes: 200,
+      musicName: "Great Tune",
+      taggedUsernames: "naidu1909",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user123",
+      username: "naidu1909",
+      reelId: "reel001",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel1.mp4",
+      profileUrl: "https://example.com/profiles/testuser1.jpg",
+      likes: 120,
+      musicName: "Cool Music",
+      taggedUsernames: "naidu199",
+    ),
+    ReelData(
+      description:
+          "Another cool reel!, Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user124",
+      username: "naidu2004",
+      reelId: "reel002",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel2.mp4",
+      profileUrl: "https://example.com/profiles/testuser2.jpg",
+      likes: 85,
+      musicName: "Awesome Beats",
+      taggedUsernames: "vishnu578",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Experience unforgettable highlights, laugh-out-loud clips, and captivating scenes. Click play and dive into the excitement!",
+      uid: "user125",
+      username: "vishnu578",
+      reelId: "reel003",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel3.mp4",
+      profileUrl: "https://example.com/profiles/testuser3.jpg",
+      likes: 200,
+      musicName: "Great Tune",
+      taggedUsernames: "naidu1909",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user123",
+      username: "naidu1909",
+      reelId: "reel001",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel1.mp4",
+      profileUrl: "https://example.com/profiles/testuser1.jpg",
+      likes: 120,
+      musicName: "Cool Music",
+      taggedUsernames: "naidu199",
+    ),
+    ReelData(
+      description:
+          "Another cool reel!, Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user124",
+      username: "naidu2004",
+      reelId: "reel002",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel2.mp4",
+      profileUrl: "https://example.com/profiles/testuser2.jpg",
+      likes: 85,
+      musicName: "Awesome Beats",
+      taggedUsernames: "vishnu578",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Experience unforgettable highlights, laugh-out-loud clips, and captivating scenes. Click play and dive into the excitement!",
+      uid: "user125",
+      username: "vishnu578",
+      reelId: "reel003",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel3.mp4",
+      profileUrl: "https://example.com/profiles/testuser3.jpg",
+      likes: 200,
+      musicName: "Great Tune",
+      taggedUsernames: "naidu1909",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user123",
+      username: "naidu1909",
+      reelId: "reel001",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel1.mp4",
+      profileUrl: "https://example.com/profiles/testuser1.jpg",
+      likes: 120,
+      musicName: "Cool Music",
+      taggedUsernames: "naidu199",
+    ),
+    ReelData(
+      description:
+          "Another cool reel!, Don't miss this reel! Get ready for jaw-dropping moments, endless entertainment, and a rollercoaster of emotions. Hit play and let the fun begin!",
+      uid: "user124",
+      username: "naidu2004",
+      reelId: "reel002",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel2.mp4",
+      profileUrl: "https://example.com/profiles/testuser2.jpg",
+      likes: 85,
+      musicName: "Awesome Beats",
+      taggedUsernames: "vishnu578",
+    ),
+    ReelData(
+      description:
+          "Don't miss this reel! Experience unforgettable highlights, laugh-out-loud clips, and captivating scenes. Click play and dive into the excitement!",
+      uid: "user125",
+      username: "vishnu578",
+      reelId: "reel003",
+      datePublished: DateTime.now(),
+      reelUrl: "https://example.com/reels/reel3.mp4",
+      profileUrl: "https://example.com/profiles/testuser3.jpg",
+      likes: 200,
+      musicName: "Great Tune",
+      taggedUsernames: "naidu1909",
+    ),
+  ];
 }

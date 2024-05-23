@@ -70,12 +70,34 @@ class _PostCardState extends State<PostCard> {
                       NetworkImage(widget.snapshot['profileImage']),
                 ),
                 InkWell(
-                  onTap: () => Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return ProfileScreen(
-                      uid: widget.snapshot['uid'],
-                    );
-                  })),
+                  onTap: () => width > webscreensize
+                      ? showBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom,
+                              ),
+                              child: DraggableScrollableSheet(
+                                maxChildSize: 1,
+                                initialChildSize: 1,
+                                minChildSize: 0.2,
+                                builder: (context, scrollController) {
+                                  return ProfileScreen(
+                                      uid: widget.snapshot['uid']);
+                                },
+                              ),
+                            );
+                          },
+                        )
+                      : Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ProfileScreen(uid: widget.snapshot['uid']),
+                          ),
+                        ),
                   child: Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(left: 8),
@@ -135,17 +157,20 @@ class _PostCardState extends State<PostCard> {
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.width > webscreensize
-                      ? MediaQuery.of(context).size.height * 0.5
-                      : MediaQuery.of(context).size.height * 0.3,
-                  width: double.infinity,
-                  child: Image(
-                    image: NetworkImage(
-                      widget.snapshot['postUrl'],
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    height: MediaQuery.of(context).size.width > webscreensize
+                        ? MediaQuery.of(context).size.height * 0.5
+                        : MediaQuery.of(context).size.height * 0.3,
+                    width: double.infinity,
+                    child: Image(
+                      fit: BoxFit.fitHeight,
+                      image: NetworkImage(
+                        widget.snapshot['postUrl'],
+                      ),
+                      errorBuilder: (context, error, stackTrace) {
+                        print('Error loading image: $error');
+                        return Icon(Icons.error);
+                      },
+                    )),
                 AnimatedOpacity(
                   duration: const Duration(milliseconds: 300),
                   opacity: isLikeAnimating ? 1 : 0,
