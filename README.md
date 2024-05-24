@@ -10,12 +10,10 @@ Builting the  Instagram clone from scratch using Flutter and Firebase!
 <a href="https://www.android.com/intl/en_in/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/android-original-wordmark.svg" alt="Android" height="60" /></a> 
 
 </div>
+
+
 ## Android Version
-
-
 <div align="center"> 
-
-
 
 <table>
   <tr>
@@ -40,8 +38,6 @@ https://github.com/naidu199/instagram_clone_flutter/assets/141550407/3279c0f2-55
 </div>
 
 ## Web Version
-
-
  <table>
   <tr>
     <td><img src="https://github.com/naidu199/instagram_clone_flutter/assets/141550407/28582934-2070-4342-9d6d-96108d610333" height="400px" style="max-width: 100%;"></td>
