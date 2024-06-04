@@ -1,6 +1,17 @@
 # instagram_clone
 
-Builting the  Instagram clone from scratch using Flutter and Firebase!
+Builting the Instagram clone from scratch using Flutter and Firebase!
+
+## Features 
+✨ Cross-Platform Development: Leveraged the power of Flutter to create a seamless and responsive user experience on Web, Android, and iOS .
+
+🔥 Real-time Database: Utilized Firebase Firestore to handle real-time data updates, ensuring smooth and dynamic interactions.
+
+🔐 User Authentication: Implemented secure authentication using Firebase Auth, providing users with a safe and personalized experience.
+
+📸 Image Upload & Storage: Integrated Firebase Storage for efficient and scalable image upload and retrieval, mirroring Instagram's core functionality.
+
+💬 Interactive Features: Built-in functionalities such as liking, commenting, and following, making the app engaging and interactive.
 
 ## Tech Stack
 <div align="center"> 
