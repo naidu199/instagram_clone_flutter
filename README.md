@@ -13,6 +13,7 @@ Builting the Instagram clone from scratch using Flutter and Firebase!
 
 💬 Interactive Features: Built-in functionalities such as liking, commenting, and following, making the app engaging and interactive.
 
+
 ## Tech Stack
 <div align="center"> 
 <a href="https://flutter.dev/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/flutterio-icon.svg" alt="Flutter" height="60" /></a> 
